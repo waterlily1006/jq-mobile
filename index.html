@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta content="charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+<script>
+$(document).bind('mobileinit',function(){
+$.mobile.changePage.defaults.changeHash = false;
+$.mobile.hashListeningEnabled = false;
+$.mobile.pushStateEnabled = false;
+});
+</script>
+<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+<title></title>
+
+</head>
+<body>
+
+<header>
+	<p>
+		<img src="images/icon.png">
+        Hải Tặc
+	</p>
+	<a class="download" href="http://d1aegnnxokxfi0.cloudfront.net/mop/vi/pirates_vi.apk" target="_blank"><img src="images/btn_xiazai.png"></a>
+</header>
+<section style="text-align:center"><img src="images/banner.jpg" class="max_img"></section>
+<section class="middle">
+	<h2><img src="images/title.png"></h2>
+	<div class="font_div">Ước mơ không bao giờ kết thúc!<br />Hãy CHƠI GAME NGAY và biến ước mơ<br />của những HẢI TẶC thành hiện thực! </div>
+	<h2 class="pic_h2"><img src="images/title_pic.png"></h2>
+	<div class="gd_main">
+		<div class="gd_img">
+			<ul class="clearfix">
+				<li><img src="images/pic1.jpg" style="width:599px;height:338px;"></li>
+				<li><img src="images/pic2.jpg" style="width:599px;height:338px;"></li>
+				<li><img src="images/pic3.jpg" style="width:599px;height:338px;"></li>
+				<li><img src="images/pic4.jpg" style="width:599px;height:338px;"></li>
+				<li><img src="images/pic5.jpg" style="width:599px;height:338px;"></li>
+			</ul>
+		</div>
+	</div>
+	<a href="https://www.facebook.com/pirates.vi.vn/" class="site_a btn_a fb_a" target="_blank">Facebook</a>
+	<a href="http://d1aegnnxokxfi0.cloudfront.net/mop/vi/pirates_vi.apk" class="site_a btn_a" target="_blank">Tải game
+		cho Android</a>
+
+</section>
+
+<script type="text/javascript">
+$(function(){
+	var i=0;
+	var w=Math.ceil($(window).width()*0.9)
+	var num=$('.gd_img ul li').length
+	var a_w=num*w
+	var bili=$('.gd_img ul li img').width()/$('.gd_img ul li img').height()*0.9
+	$('.gd_img ul').css('width',Math.ceil(a_w+100))
+	$('.gd_img ul li img,.gd_img ul li').width(Math.ceil($(window).width()*0.9)).height($(window).width()/bili)
+	$('.gd_img').height($(window).width()/bili-1)
+
+	$('.download').touchstart(function(){
+		$(this).find('img').attr('src','images/btn_xiazai_hover.png');
+	});
+	$('.download').touchend(function(){
+		$(this).find('img').attr('src','images/btn_xiazai.png');
+	});
+
+	$('.site_a').touchstart(function(){
+		$(this).addClass('site_a_hover')
+	})
+	$('.site_a').touchend(function(){
+		$(this).removeClass('site_a_hover')
+	})
+	$('.fb_a').touchstart(function(){
+		$(this).addClass('fb_a_hover')
+	})
+	$('.fb_a').touchend(function(){
+		$(this).removeClass('fb_a_hover')
+	})
+
+	function auto_pic(){
+		$(".gd_img").on("swipeleft",function(){
+			i--
+			img_move()
+		});
+		$(".gd_img").on("swiperight",function(){
+			i++
+			img_move()
+		});
+	}
+	function img_move(){
+		if(i>0){
+			i=0;
+			return false;
+		}else if(i<-(num-1)){
+			i=-(num-1);
+			return false;
+		}else{
+			move()
+		}
+	}
+	function auto_move(){
+		i--;
+		if(i<=-num){
+			i=0;
+			move()
+		}else{
+			move()
+		}
+		setTimeout(auto_move,5000)
+	}
+	function move(){
+		$('.gd_img ul').animate({
+			left:i*w
+		})
+	}
+	$(window).resize(function(){
+		w=Math.ceil($(window).width()*0.9)
+		var a_w=num*w
+		$('.gd_img ul').css('width',a_w)
+		$('.gd_img ul li img,.gd_img ul li').width(w).height(w/bili*0.9)
+		$('.gd_img').height(w/bili*0.9)
+		$('.gd_img ul').css('left',i*w)
+	})
+	auto_pic()
+	auto_move()
+})
+
+</script>
+</body>
+</html>
